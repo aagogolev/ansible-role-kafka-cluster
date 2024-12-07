@@ -56,7 +56,10 @@ ansible-playbook -i inventory/hosts.yml add-broker.yml
 ```
 ## Roles
 **common**: Sets up common system packages and Java.
+
 **zookeeper**: Installs and configures Zookeeper ensemble.
+
 **kafka**: Installs and configures Kafka brokers.
+
 **kafka-ui**: Deploys Kafka UI using Docker.
 
