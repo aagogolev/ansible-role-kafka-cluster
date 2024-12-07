@@ -1,0 +1,36 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+  tags: common
+
+- name: Install system packages
+  apt:
+    name: "{{ system_packages }}"
+    state: present
+    update_cache: yes
+  become: yes
+  vars:
+    system_packages:
+      - openjdk-11-jdk
+      - curl
+      - tar
+      - wget
+      - net-tools
+      - unzip
+      - python3
+      - python3-pip
+      - ca-certificates
+      - gnupg
+      - apt-transport-https
+  tags: common
+
+- name: Set JAVA_HOME
+  lineinfile:
+    path: /etc/environment
+    line: "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
+    state: present
+  become: yes
+  tags: common

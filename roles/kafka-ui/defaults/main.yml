@@ -1,0 +1,5 @@
+---
+kafka_ui_container_name: kafka-ui
+kafka_ui_version: latest
+kafka_ui_port: 8080
+kafka_zookeeper_connect: "{% for host in groups['zookeeper'] %}{{ hostvars[host]['ansible_host'] }}:2181{% if not loop.last %},{% endif %}{% endfor %}"

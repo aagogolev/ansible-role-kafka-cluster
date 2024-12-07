@@ -1,0 +1,11 @@
+---
+kafka_home: /opt/kafka
+kafka_data_dir: /var/lib/kafka
+kafka_log_dir: /var/log/kafka
+
+kafka_listeners: "PLAINTEXT://:9092,INTERNAL://:9093"
+kafka_advertised_listeners: "PLAINTEXT://{{ ansible_host }}:9092,INTERNAL://{{ ansible_host }}:9093"
+kafka_inter_broker_listener_name: INTERNAL
+
+kafka_default_replication_factor: 3
+kafka_min_insync_replicas: 2

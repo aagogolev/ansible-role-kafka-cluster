@@ -1,0 +1,20 @@
+---
+- name: Configure common settings
+  hosts: all
+  roles:
+    - common
+
+- name: Deploy Zookeeper cluster
+  hosts: zookeeper
+  roles:
+    - zookeeper
+
+- name: Deploy Kafka brokers
+  hosts: kafka_brokers
+  roles:
+    - kafka
+
+- name: Deploy Kafka UI
+  hosts: kafka_ui
+  roles:
+    - kafka-ui

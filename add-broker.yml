@@ -1,0 +1,6 @@
+---
+- name: Add new Kafka broker
+  hosts: kafka_brokers
+  roles:
+    - common
+    - kafka

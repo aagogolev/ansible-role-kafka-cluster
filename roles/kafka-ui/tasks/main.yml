@@ -1,0 +1,26 @@
+---
+- name: Include Docker setup tasks
+  include_tasks: setup_docker.yml
+  tags: kafka_ui
+
+- name: Create Docker network
+  docker_network:
+    name: kafka-network
+    state: present
+  tags: kafka_ui
+
+- name: Run Kafka UI container
+  docker_container:
+    name: "{{ kafka_ui_container_name }}"
+    image: "provectuslabs/kafka-ui:{{ kafka_ui_version }}"
+    state: started
+    restart_policy: always
+    ports:
+      - "{{ kafka_ui_port }}:8080"
+    env:
+      KAFKA_CLUSTERS_0_NAME: "KafkaCluster"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "{% for host in groups['kafka_brokers'] %}{{ hostvars[host]['ansible_host'] }}:9092{% if not loop.last %},{% endif %}{% endfor %}"
+      KAFKA_CLUSTERS_0_ZOOKEEPER: "{{ kafka_zookeeper_connect }}"
+    networks:
+      - name: kafka-network
+  tags: kafka_ui

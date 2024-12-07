@@ -1,0 +1,14 @@
+[Unit]
+Description=Apache Zookeeper
+After=network.target
+
+[Service]
+Type=simple
+User={{ kafka_user }}
+Group={{ kafka_group }}
+Environment="JAVA_HOME={{ java_home }}"
+ExecStart={{ zookeeper_dir }}/bin/zkServer.sh start-foreground
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
