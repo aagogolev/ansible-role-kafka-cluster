@@ -16,7 +16,7 @@ kafka_listener_security_protocol_map: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
 kafka_zookeeper_connect: "{% for host in groups['zookeeper'] %}{{ hostvars[host]['ansible_host'] }}:2181{% if not loop.last %},{% endif %}{% endfor %}"
 kafka_default_replication_factor: 3
 kafka_min_insync_replicas: 2
-kafka_auto_create_topics_enable: "false"
+kafka_auto_create_topics_enable: "true"
 kafka_delete_topic_enable: "true"
 kafka_num_partitions: 8
 kafka_log_retention_hours: 168
