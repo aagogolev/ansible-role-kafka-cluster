@@ -1,12 +1,12 @@
 ---
 - name: Remove existing zookeeper directory
-  file:
+  ansible.builtin.file:
     path: "{{ zookeeper_dir }}"
     state: absent
   tags: zookeeper
 
 - name: Create data and log directories
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ kafka_user }}"
@@ -27,12 +27,12 @@
   unarchive:
     src: "/tmp/zookeeper-{{ zookeeper_version }}.tar.gz"
     dest: "/opt"
-    remote_src: yes
+    remote_src: true
     creates: "/opt/apache-zookeeper-{{ zookeeper_version }}-bin"
   tags: zookeeper
 
 - name: Create symlink for Zookeeper
-  file:
+  ansible.builtin.file:
     src: "/opt/apache-zookeeper-{{ zookeeper_version }}-bin"
     dest: "{{ zookeeper_dir }}"
     state: link
@@ -47,7 +47,7 @@
   tags: zookeeper
 
 - name: Configure Zookeeper
-  template:
+  ansible.builtin.template:
     src: zoo.cfg.j2
     dest: "{{ zookeeper_dir }}/conf/zoo.cfg"
     owner: "{{ kafka_user }}"
@@ -55,7 +55,7 @@
   tags: zookeeper
 
 - name: Install Zookeeper service
-  template:
+  ansible.builtin.template:
     src: zookeeper.service.j2
     dest: /etc/systemd/system/zookeeper.service
   tags: zookeeper
@@ -64,6 +64,6 @@
   systemd:
     name: zookeeper
     state: started
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
   tags: zookeeper

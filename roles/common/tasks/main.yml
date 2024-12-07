@@ -1,17 +1,17 @@
 ---
 - name: Update apt cache
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     cache_valid_time: 3600
-  become: yes
+  become: true
   tags: common
 
 - name: Install system packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ system_packages }}"
     state: present
-    update_cache: yes
-  become: yes
+    update_cache: true
+  become: true
   vars:
     system_packages:
       - openjdk-11-jdk
@@ -32,5 +32,5 @@
     path: /etc/environment
     line: "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
     state: present
-  become: yes
+  become: true
   tags: common

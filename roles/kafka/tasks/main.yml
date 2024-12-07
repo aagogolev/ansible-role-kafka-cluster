@@ -6,7 +6,7 @@
   tags: kafka
 
 - name: Create Kafka directory
-  file:
+  ansible.builtin.file:
     path: "{{ kafka_home }}"
     state: directory
     owner: "{{ kafka_user }}"
@@ -17,23 +17,23 @@
   unarchive:
     src: "/tmp/kafka_{{ kafka_scala_version }}-{{ kafka_version }}.tgz"
     dest: "/opt"
-    remote_src: yes
+    remote_src: true
     owner: "{{ kafka_user }}"
     group: "{{ kafka_group }}"
   tags: kafka
 
 - name: Create Kafka symlink
-  file:
+  ansible.builtin.file:
     src: "/opt/kafka_{{ kafka_scala_version }}-{{ kafka_version }}"
     dest: "{{ kafka_home }}"
     state: link
-    force: yes
+    force: true
     owner: "{{ kafka_user }}"
     group: "{{ kafka_group }}"
   tags: kafka
 
 - name: Create data directory
-  file:
+  ansible.builtin.file:
     path: "{{ kafka_data_dir }}"
     state: directory
     owner: "{{ kafka_user }}"
@@ -42,7 +42,7 @@
   tags: kafka
 
 - name: Create log directory
-  file:
+  ansible.builtin.file:
     path: "{{ kafka_log_dir }}"
     state: directory
     owner: "{{ kafka_user }}"
@@ -51,7 +51,7 @@
   tags: kafka
 
 - name: Configure Kafka
-  template:
+  ansible.builtin.template:
     src: server.properties.j2
     dest: "{{ kafka_home }}/config/server.properties"
     owner: "{{ kafka_user }}"
@@ -60,7 +60,7 @@
   tags: kafka
 
 - name: Install Kafka service
-  template:
+  ansible.builtin.template:
     src: kafka.service.j2
     dest: /etc/systemd/system/kafka.service
   notify: restart kafka
@@ -70,6 +70,6 @@
   systemd:
     name: kafka
     state: started
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
   tags: kafka
