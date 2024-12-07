@@ -30,7 +30,7 @@ This Ansible playbook automates the deployment and configuration of a Kafka clus
 │   ├── kafka
 │   ├── kafka-ui
 │   └── zookeeper
-└── site.yml
+└── main.yml
 ```
 ## Configuration
 
@@ -43,7 +43,7 @@ This Ansible playbook automates the deployment and configuration of a Kafka clus
 To deploy the entire Kafka cluster:
 
 ```bash
-ansible-playbook -i inventory/hosts.yml site.yml
+ansible-playbook -i inventory/hosts.yml main.yml
 ```
 
 ## To add a new Kafka broker:
