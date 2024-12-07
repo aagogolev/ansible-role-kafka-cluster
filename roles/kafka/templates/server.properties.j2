@@ -1,0 +1,22 @@
+broker.id={{ kafka_broker_id }}
+listeners=PLAINTEXT://0.0.0.0:9092,INTERNAL://0.0.0.0:9093
+advertised.listeners=PLAINTEXT://{{ ansible_host }}:9092,INTERNAL://{{ ansible_host }}:9093
+listener.security.protocol.map=PLAINTEXT:PLAINTEXT,INTERNAL:PLAINTEXT
+inter.broker.listener.name=INTERNAL
+
+zookeeper.connect={{ kafka_zookeeper_connect }}
+
+log.dirs={{ kafka_data_dir }}
+num.partitions={{ kafka_num_partitions }}
+default.replication.factor={{ kafka_default_replication_factor }}
+min.insync.replicas={{ kafka_min_insync_replicas }}
+log.retention.hours={{ kafka_log_retention_hours }}
+
+auto.create.topics.enable={{ kafka_auto_create_topics_enable }}
+delete.topic.enable={{ kafka_delete_topic_enable }}
+
+num.network.threads=3
+num.io.threads=8
+socket.send.buffer.bytes=102400
+socket.receive.buffer.bytes=102400
+socket.request.max.bytes=104857600
