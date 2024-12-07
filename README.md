@@ -16,6 +16,7 @@ This Ansible playbook automates the deployment and configuration of a Kafka clus
 
 ## Directory Structure
 
+```
 ├── add-broker.yml
 ├── group_vars
 │   ├── all.yml
@@ -30,7 +31,7 @@ This Ansible playbook automates the deployment and configuration of a Kafka clus
 │   ├── kafka-ui
 │   └── zookeeper
 └── site.yml
-
+```
 ## Configuration
 
 1. Update `inventory/hosts.yml` with your server details.
